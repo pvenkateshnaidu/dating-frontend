@@ -1,0 +1,38 @@
+
+<mat-sidenav-container>
+  <mat-sidenav-content>
+    <form  *ngIf="!isLoggedIn" [formGroup]="myForm" (ngSubmit)="onSubmit()" novalidate>
+      
+      <!-- Name -->
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Username" formControlName="username">
+      
+        <mat-error *ngIf="errorHandling('username', 'required')">
+          You must provide a <strong>Username</strong>
+       </mat-error>
+      </mat-form-field>
+
+      <!-- Email -->
+      <mat-form-field class="example-full-width">
+        <input type="password" matInput placeholder="Password" formControlName="password">
+        <mat-error *ngIf="errorHandling('password', 'required')">
+          You must provide a <strong>Password</strong>
+        </mat-error>
+      </mat-form-field>  
+      <mat-card-actions >
+        <button mat-raised-button color="primary" [disabled]="!myForm.valid">Login</button>      
+      </mat-card-actions>   
+      <div
+      class="alert alert-danger"
+      role="alert"
+      *ngIf="isLoginFailed"
+    >
+      Login failed: {{ errorMessage }}
+    </div>
+    </form>
+    <div class="alert alert-success" *ngIf="isLoggedIn">
+      Logged in as {{ roles }}.
+    </div>
+  </mat-sidenav-content>
+  
+</mat-sidenav-container>
