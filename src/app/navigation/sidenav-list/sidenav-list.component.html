@@ -2,16 +2,18 @@
   <a mat-list-item routerLink="/home" (click)="onSidenavClose()">
     <mat-icon>home</mat-icon> <span class="nav-caption">Home</span>
   </a>
-  <a mat-list-item routerLink="/register" (click)="onSidenavClose()">
+  <a mat-list-item routerLink="/register" (click)="onSidenavClose()" *ngIf="!(isLoggedIn$ | async)">
     <mat-icon>assignment_ind</mat-icon> <span class="nav-caption">Register</span>
   </a>
-  
-  <mat-list-item [matMenuTriggerFor]="menu">
+  <a mat-list-item routerLink="/login" (click)="onSidenavClose()" *ngIf="!(isLoggedIn$ | async)">
+    <mat-icon>assignment_ind</mat-icon> <span class="nav-caption">Login</span>
+  </a>
+  <mat-list-item [matMenuTriggerFor]="menu" *ngIf="isLoggedIn$ | async as isLoggedIn">
     <mat-icon>unfold_more</mat-icon>
-    <a matline>Example</a>
+    <a matline>Menu</a>
   </mat-list-item>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="onSidenavClose()">View profile</button>
-    <button mat-menu-item (click)="onSidenavClose()">Add contact</button>
+  <mat-menu #menu="matMenu" >
+    <button routerLink="/profile" mat-menu-item (click)="onSidenavClose()">View profile</button>
+    <button routerLink="/search" mat-menu-item (click)="onSidenavClose()">All Profiles</button>
   </mat-menu>
 </mat-nav-list>

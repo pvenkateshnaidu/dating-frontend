@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-const AUTH_API = 'http://localhost:8084/api/auth/';
+const AUTH_API = 'http://springbootrestapi-env.mvmbkrpny3.ap-south-1.elasticbeanstalk.com/api/auth/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
