@@ -5,7 +5,7 @@
       <div fxFill fxLayout="column" fxLayoutAlign="space-between">
         <div fxLayout="row wrap">
           <ng-container *ngFor="let user of data">
-            <img  src="{{user.file?user.file:'http://www.ushodhayamatrimonial.com/public/img/profile-default-pic.png'}}" >
+            <img  src="{{user.file?'https://datingapp-frontend.s3.ap-south-1.amazonaws.com/images/'+user.username:'http://www.ushodhayamatrimonial.com/public/img/profile-default-pic.png'}}" >
             <mat-card-actions >   <span>  <h6 >Name: {{user.username |titlecase }}</h6></span> 
                   <span>  <h6  >Email: {{user.email |titlecase }}</h6></span>  
                   <span>  <h6  >Religion :{{user.religion |titlecase }}</h6></span>  

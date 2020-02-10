@@ -67,7 +67,7 @@
       </mat-form-field>
       <div class="avatar-upload">
         <div class="avatar-edit">
-          <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput (change)="uploadFile($event)" />
+          <input type='file' (change)="selectFile($event)" id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput (change)="uploadFile($event)" />
         </div>
         <div class="avatar-preview">
           <div id="imagePreview" [style.backgroundImage]="'url('+ imageUrl +')'">
@@ -96,5 +96,3 @@
         </mat-sidenav-content>
   
 </mat-sidenav-container>
-	<!-- Upload image -->
- 

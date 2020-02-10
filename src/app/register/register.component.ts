@@ -2,9 +2,9 @@ import { Component,ChangeDetectorRef, ElementRef, OnInit,ViewChild  } from '@ang
 import { AuthService } from '../_services/auth.service';
 import {MatStepper} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-
+import { HttpResponse, HttpEventType } from '@angular/common/http';
 import { Router } from '@angular/router';
-
+import { UploadFileService } from '../upload-file.service';
 
 
 @Component({
@@ -27,15 +27,34 @@ Religion: any =["Hindu","Muslim-Shia","Muslim-Sunni","Christian","Sikh","Jain-Di
 maritalStatusArray:any =["Single","Married"];
 
 
-  constructor(private authService: AuthService,public fb: FormBuilder,private route:Router,  private cd: ChangeDetectorRef) { }
+selectedFiles: FileList;
+currentFileUpload: File;
+progress: { percentage: number } = { percentage: 0 };
+  constructor(private uploadService: UploadFileService,private authService: AuthService,public fb: FormBuilder,private route:Router,  private cd: ChangeDetectorRef) { }
  
 
   ngOnInit() {
   
     this.reactiveForm()
   }
-  
+  selectFile(event) {
+    this.selectedFiles = event.target.files;
+  }
+  upload() {
+    this.progress.percentage = 0;
 
+    this.currentFileUpload = this.selectedFiles.item(0);
+    
+    this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(event => {
+      if (event.type === HttpEventType.UploadProgress) {
+        this.progress.percentage = Math.round(100 * event.loaded / event.total);
+      } else if (event instanceof HttpResponse) {
+        console.log('File is completely uploaded!');
+      }
+    });
+
+    this.selectedFiles = undefined;
+  }
    /* Reactive form */
    reactiveForm() {
     this.myForm = this.fb.group({
@@ -92,6 +111,8 @@ maritalStatusArray:any =["Single","Married"];
   removeUpload: boolean = false;
 
   uploadFile(event) {
+   
+    
     let reader = new FileReader(); // HTML5 FileReader API
     let file = event.target.files[0];
   
@@ -102,8 +123,9 @@ maritalStatusArray:any =["Single","Married"];
       reader.onload = () => {
         this.imageUrl = reader.result;
         this.myForm.patchValue({
-         file: reader.result
-        }); 
+          file: reader.result
+         }); 
+      
         this.editFile = false;
         this.removeUpload = true;
       }
