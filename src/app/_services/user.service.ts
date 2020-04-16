@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-const API_URL = 'http://springbootrestapi-env.mvmbkrpny3.ap-south-1.elasticbeanstalk.com/api/test/';
-//const API_URL = 'http://localhost:5000/api/test/';
+//const API_URL = 'http://springbootrestapi-env.mvmbkrpny3.ap-south-1.elasticbeanstalk.com/api/test/';
+const API_URL = 'http://localhost:5000/api/test/';
 @Injectable({
   providedIn: 'root'
 })
